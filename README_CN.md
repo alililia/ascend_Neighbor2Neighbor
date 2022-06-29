@@ -294,21 +294,21 @@ After denoise: Average PSNR = 30.9367, SSIM_b = 0.8766;
 
 Validation for Neighbor2Neighbor
 
-| Parameters                 | Ascend                                                       |                                                           |
-| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Resource                   | Ascend 910 ；CPU 2.60GHz，192cores; Memory, 755G             | GeForce RTX 3090*8，Intel(R) Xeon(R) Gold 6226R CPU @ 2.90GHz；Memory：256G |
-| uploaded Date              | 11/1/2021 (month/day/year)                                   | 11/16/2021 (month/day/year)                                  |
-| MindSpore Version          | 1.3.0                                                       | 1.3.0                                                       |
-| Dataset                    | Kodak                                                        | Kodak                                                        |
-| Training Parameters        | noisetype=gauss25, n_feature=48, n_channel=3, lr=3e-4, gamma=0.5, epoch=100, batch_size=4, patchsize=256, increase_ratio=2.0 | noisetype=gauss25, n_feature=48, n_channel=3, lr=3e-4, gamma=0.5, epoch=100, batch_size=4, patchsize=256, increase_ratio=2.0 |
-| Optimizer                  | Adam                                                         | Adam                                                         |
-| Loss Function              | 均方差的和(自定义loss，见models.py中的UNetWithLossCell)      | 均方差的和(自定义loss，见models.py中的UNetWithLossCell)      |
-| outputs                    | image without noise                                          | image without noise                                          |
-| Loss                       | 2994.17 ~ 6868.48                                            | 2918.00 ~ 7415.26                                            |
-| Accuracy                   | PSNR = 32.1240, SSIM = 0.8863                                | PSNR = 32.0975, SSIM = 0.8795                                |
-| Total time                 | 8p：3h50m (without validation)                               | 8p：5h54m (without validation)                               |
-| Checkpoint for Fine tuning | 8p: 18.60MB(.ckpt file)                                      | 8p: 14.90MB(.ckpt file)                                      |
-| Scripts                    | [Neighbor2Neighbor脚本](https://gitee.com/mindspore/models/tree/master/research/cv/Neighbor2Neighbor) | [Neighbor2Neighbor脚本](https://gitee.com/mindspore/models/tree/master/research/cv/Neighbor2Neighbor) |
+| Parameters                 | Ascend                                                       |                                                     
+| -------------------------- | ------------------------------------------------------------ | 
+| Resource                   | Ascend 910 ；CPU 2.60GHz，192cores; Memory, 755G             | 
+| uploaded Date              | 11/1/2021 (month/day/year)                                   | 
+| MindSpore Version          | 1.3.0                                                       | 
+| Dataset                    | Kodak                                                        |
+| Training Parameters        | noisetype=gauss25, n_feature=48, n_channel=3, lr=3e-4, gamma=0.5, epoch=100, batch_size=4, patchsize=256, increase_ratio=2.0 | 
+| Optimizer                  | Adam                                                         | 
+| Loss Function              | 均方差的和(自定义loss，见models.py中的UNetWithLossCell)      |
+| outputs                    | image without noise                                          | 
+| Loss                       | 2994.17 ~ 6868.48                                            | 
+| Accuracy                   | PSNR = 32.1240, SSIM = 0.8863                                | 
+| Total time                 | 8p：3h50m (without validation)                               | 
+| Checkpoint for Fine tuning | 8p: 18.60MB(.ckpt file)                                      | 
+| Scripts                    | [Neighbor2Neighbor脚本](https://gitee.com/mindspore/models/tree/master/research/cv/Neighbor2Neighbor) | 
 
 ## 随机情况说明
 
