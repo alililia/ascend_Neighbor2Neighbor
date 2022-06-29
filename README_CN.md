@@ -61,8 +61,8 @@
 
 ## 环境要求
 
-- 硬件（Ascend/ModelArts/）
-    - 准备Ascend或ModelArts或处理器搭建硬件环境。
+- 硬件（Ascend/ModelArts）
+    - 准备Ascend或ModelArts处理器搭建硬件环境。
 - 框架
     - [MindSpore](https://www.mindspore.cn/install)
 - 如需查看详情，请参见如下资源：
@@ -218,74 +218,7 @@ increase_ratio: 2.0
   ...
   ```
 
-- 处理器环境运行
 
-  ```bash
-  ###参数配置请修改 default_config.yaml 文件
-  #通过 python 命令行运行单卡训练脚本。
-  python train.py --is_distributed=0 --device_target= > train__log.txt 2>&1 &
-
-  #通过 bash 命令启动单卡训练。
-  bash ./scripts/run_train_.sh device_id
-  e.g. bash ./scripts/run_train_.sh 0
-
-  #多卡训练。
-  bash ./scripts/run_distribute_train_.sh
-  #多卡训练将会在代码根目录创建_work_space文件夹，并在该工作目录下独立运行、保存相关训练信息。
-  ```
-
-  训练完成后，您可以在 output_path 参数指定的目录下找到保存的权重文件(多卡运行时所有代码会先复制一份到device目录，然后在这个目录下运行)，训练过程中的部分 loss 收敛情况如下（8卡并行）：
-
-  ```tex
-  ......
-  2021-11-15 10:18:35,002:INFO:epoch[97], iter[1310], loss:7053.938965, 245.62 imgs/sec, lr:1.875e-05
-  2021-11-15 10:18:36,348:INFO:epoch[97], iter[1320], loss:7147.390430, 237.73 imgs/sec, lr:1.875e-05
-  2021-11-15 10:18:37,659:INFO:epoch[97], iter[1330], loss:6888.020801, 244.29 imgs/sec, lr:1.875e-05
-  2021-11-15 10:18:38,997:INFO:epoch[97], iter[1340], loss:7328.122461, 239.12 imgs/sec, lr:1.875e-05
-  2021-11-15 10:18:40,318:INFO:epoch[97], iter[1350], loss:6857.961377, 242.36 imgs/sec, lr:1.875e-05
-  2021-11-15 10:18:41,638:INFO:epoch[97], iter[1360], loss:7225.858057, 242.51 imgs/sec, lr:1.875e-05
-  2021-11-15 10:18:42,954:INFO:epoch[97], iter[1370], loss:6789.295264, 243.31 imgs/sec, lr:1.875e-05
-  2021-11-15 10:18:44,232:INFO:epoch[97], iter[1380], loss:6954.170557, 250.46 imgs/sec, lr:1.875e-05
-  2021-11-15 10:18:44,836:INFO:Start to test on /data1/n2n/test_dataset/Kodak
-  2021-11-15 10:18:52,336:INFO:Result in:/data1/n2n/test_dataset/Kodak
-  2021-11-15 10:18:52,337:INFO:Before denoise: Average PSNR_b = 20.1729, SSIM_b = 0.3191;
-  2021-11-15 10:18:52,337:INFO:After denoise: Average PSNR = 32.0001, SSIM = 0.8773
-  2021-11-15 10:18:52,337:INFO:testing finished....
-  2021-11-15 10:18:52,337:INFO:time cost:7.50101113319397 seconds!
-  2021-11-15 10:18:52,337:INFO:Start to test on /data1/n2n/test_dataset/Set14
-  2021-11-15 10:18:55,170:INFO:Result in:/data1/n2n/test_dataset/Set14
-  2021-11-15 10:18:55,170:INFO:Before denoise: Average PSNR_b = 20.1706, SSIM_b = 0.3813;
-  2021-11-15 10:18:55,170:INFO:After denoise: Average PSNR = 30.9913, SSIM = 0.8619
-  2021-11-15 10:18:55,170:INFO:testing finished....
-  2021-11-15 10:18:55,170:INFO:time cost:2.833129644393921 seconds!
-  2021-11-15 10:18:55,171:INFO:Start to test on /data1/n2n/test_dataset/BSD300
-  2021-11-15 10:19:04,709:INFO:Result in:/data1/n2n/test_dataset/BSD300
-  2021-11-15 10:19:04,709:INFO:Before denoise: Average PSNR_b = 20.1711, SSIM_b = 0.3869;
-  2021-11-15 10:19:04,709:INFO:After denoise: Average PSNR = 30.8586, SSIM = 0.8762
-  2021-11-15 10:19:04,709:INFO:testing finished....
-  2021-11-15 10:19:04,709:INFO:time cost:9.538610458374023 seconds!
-  2021-11-15 10:19:04,721:INFO:Update newly best ckpt! best_value: 35.53895035799344
-  2021-11-15 10:19:04,871:INFO:epoch[98], iter[0], loss:6756.173145, 250.80 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:06,429:INFO:epoch[98], iter[10], loss:6989.332422, 205.43 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:07,993:INFO:epoch[98], iter[20], loss:7170.686377, 204.80 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:09,551:INFO:epoch[98], iter[30], loss:7216.792285, 205.57 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:11,139:INFO:epoch[98], iter[40], loss:6964.292969, 201.65 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:12,672:INFO:epoch[98], iter[50], loss:6972.157861, 208.82 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:14,234:INFO:epoch[98], iter[60], loss:7075.860840, 204.91 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:15,784:INFO:epoch[98], iter[70], loss:6929.559766, 206.69 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:17,372:INFO:epoch[98], iter[80], loss:7098.844824, 201.72 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:18,933:INFO:epoch[98], iter[90], loss:7027.414697, 205.11 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:20,490:INFO:epoch[98], iter[100], loss:7030.924365, 205.87 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:22,047:INFO:epoch[98], iter[110], loss:6919.385596, 205.67 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:23,604:INFO:epoch[98], iter[120], loss:7414.254639, 205.54 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:25,147:INFO:epoch[98], iter[130], loss:7066.815283, 207.57 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:26,663:INFO:epoch[98], iter[140], loss:7203.811914, 211.23 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:28,229:INFO:epoch[98], iter[150], loss:7073.466602, 204.46 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:29,836:INFO:epoch[98], iter[160], loss:6908.576367, 199.24 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:31,421:INFO:epoch[98], iter[170], loss:7336.978125, 202.00 imgs/sec, lr:1.875e-05
-  2021-11-15 10:19:32,976:INFO:epoch[98], iter[180], loss:7385.383936, 205.86 imgs/sec, lr:1.875e-05
-  ......
-  ```
 
 ### 评估过程
 
@@ -308,20 +241,7 @@ increase_ratio: 2.0
 
   运行完成后，您可以在 output_path 指定的目录下找到推理运行日志和去噪前后的图片。
 
-- 处理器环境运行
 
-  ```bash
-  ### 参数配置请修改 default_config.yaml 文件
-  #  default_config.yaml 文件中的 pretrain_path 指 ckpt 所在目录，为了兼容 modelarts，将其拆分为了 “路径” 与 “文件名”
-  #  test_dir 指测试数据集文件夹的根目录，而不应该是图片的根目录，即同时测试多个数据集
-  # 通过 python 命令行运行推理脚本。
-  python eval.py --device_target= > eval__log.txt 2>&1 &
-  #通过 bash 命令启动推理。
-  bash ./scripts/run_eval_.sh device_id
-  e.g. bash ./scripts/run_eval_.sh 0
-  ```
-
-  运行完成后，您可以在 output_path 指定的目录下找到推理运行日志和去噪前后的图片。
 
 ### 推理过程
 
